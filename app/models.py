@@ -5,9 +5,11 @@ All the database models are contained here:
 '''
 
 from datetime import datetime
-from app import db
+from werkzeug.security import generate_password_hash, check_password_hash
+from flask_login import UserMixin
+from app import db, login
 
-class User(db.Model):
+class User(UserMixin, db.Model):
     '''
     Defines the user model for the database.
     '''
@@ -20,9 +22,17 @@ class User(db.Model):
     def __repr__(self):
         return '<User {}>'.format(self.username)
 
+    def set_password(self, password):
+        '''Turns a password string into a hash.'''
+        self.password_hash = generate_password_hash(password)
+
+    def check_password(self, password):
+        '''Converts password into a hash, and then checks against stored hash.'''
+        return check_password_hash(self.password_hash, password)
+
 class Post(db.Model):
     '''
-    Blog post database model. It has a relationship to the user. 
+    Blog post database model. It has a relationship to the user.
     Each user can have many blog posts.
     '''
     id = db.Column(db.Integer, primary_key=True)
@@ -32,3 +42,9 @@ class Post(db.Model):
 
     def __repr__(self):
         return '<Post {}'.format(self.body)
+
+@login.user_loader
+def load_user(id):
+    '''Flask login extensions uses user IDs. This helper function helps retrieve
+    the user based on their id.'''
+    return User.query.get(int(id))
