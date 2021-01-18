@@ -4,6 +4,7 @@ All the database models are contained here:
 - Blog Posts
 '''
 
+from hashlib import md5
 from datetime import datetime
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin
@@ -29,6 +30,12 @@ class User(UserMixin, db.Model):
     def check_password(self, password):
         '''Converts password into a hash, and then checks against stored hash.'''
         return check_password_hash(self.password_hash, password)
+
+    def avatar(self, size):
+        """ Returns MD5 encoded url for gravatar. """
+        digest = md5(self.email.lower().encode('utf-8')).hexdigest()
+        return 'https://www.gravatar.com/avatar/{}?d=identicon&s={}'.format(
+            digest, size) 
 
 class Post(db.Model):
     '''
