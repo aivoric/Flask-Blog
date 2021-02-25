@@ -19,6 +19,8 @@ class User(UserMixin, db.Model):
     email = db.Column(db.String(120), index=True, unique=True)
     password_hash = db.Column(db.String(128))
     posts = db.relationship('Post', backref='author', lazy='dynamic')
+    about_me = db.Column(db.String(140))
+    last_seen = db.Column(db.DateTime, default=datetime.utcnow)
 
     def __repr__(self):
         return '<User {}>'.format(self.username)
@@ -33,9 +35,9 @@ class User(UserMixin, db.Model):
 
     def avatar(self, size):
         """ Returns MD5 encoded url for gravatar. """
-        digest = md5(self.email.lower().encode('utf-8')).hexdigest()
-        return 'https://www.gravatar.com/avatar/{}?d=identicon&s={}'.format(
-            digest, size) 
+        lower_email = str(self.email).lower()
+        digest = md5(lower_email.encode('utf-8')).hexdigest()
+        return 'https://www.gravatar.com/avatar/{}?d=identicon&s={}'.format(digest, size)
 
 class Post(db.Model):
     '''
@@ -51,7 +53,7 @@ class Post(db.Model):
         return '<Post {}'.format(self.body)
 
 @login.user_loader
-def load_user(id):
+def load_user(user_id):
     '''Flask login extensions uses user IDs. This helper function helps retrieve
     the user based on their id.'''
-    return User.query.get(int(id))
+    return User.query.get(int(user_id))
