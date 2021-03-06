@@ -1,0 +1,195 @@
+# Spanish translations for PROJECT.
+# Copyright (C) 2021 ORGANIZATION
+# This file is distributed under the same license as the PROJECT project.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2021.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: PROJECT VERSION\n"
+"Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
+"POT-Creation-Date: 2021-03-06 12:43+0300\n"
+"PO-Revision-Date: 2021-03-06 12:45+0300\n"
+"Last-Translator: \n"
+"Language: es\n"
+"Language-Team: es <LL@li.org>\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.9.0\n"
+"X-Generator: Poedit 2.4.2\n"
+
+#: app/__init__.py:29
+msgid "Please log in to access this page."
+msgstr "Por favor, identifíquese para acceder a esta página."
+
+#: app/forms.py:12 app/forms.py:47
+msgid "Username"
+msgstr "Nombre de usuario"
+
+#: app/forms.py:13 app/forms.py:24 app/forms.py:76
+msgid "Password"
+msgstr "Contraseña"
+
+#: app/forms.py:14
+msgid "Remember Me"
+msgstr "Recuérdame"
+
+#: app/forms.py:15
+msgid "Sign In"
+msgstr "Acceder"
+
+#: app/forms.py:22 app/forms.py:72
+msgid "Email"
+msgstr "Email"
+
+#: app/forms.py:26 app/forms.py:78
+msgid "Repeat Password"
+msgstr "Repita la contraseña"
+
+#: app/forms.py:28
+msgid "Register"
+msgstr "Registrarse"
+
+#: app/forms.py:37
+msgid "Please user a different username."
+msgstr "Por favor, utilice un nombre de usuario diferente."
+
+#: app/forms.py:43
+msgid "Please use a different email address."
+msgstr "Por favor, utilice una dirección de correo electrónico diferente."
+
+#: app/forms.py:48
+msgid "About me"
+msgstr "Sobre mí"
+
+#: app/forms.py:49 app/forms.py:64 app/forms.py:69
+msgid "Submit"
+msgstr "Enviar"
+
+#: app/forms.py:61
+msgid "Please use a different username."
+msgstr "Por favor, utilice un nombre de usuario diferente."
+
+#: app/forms.py:67
+msgid "Say something"
+msgstr "Di algo"
+
+#: app/forms.py:73 app/forms.py:79
+msgid "Request Password Reset"
+msgstr "Solicitar el restablecimiento de la contraseña"
+
+#: app/routes.py:32
+msgid "Your post is now live!"
+msgstr "¡Su puesto está ahora en vivo!"
+
+#: app/routes.py:68
+msgid "Invalid username or password."
+msgstr "Nombre de usuario o contraseña no válidos."
+
+#: app/routes.py:94
+msgid "Congratulations, you are now a registered user!"
+msgstr "Enhorabuena, ya eres un usuario registrado!"
+
+#: app/routes.py:127
+msgid "Your changes have been saved."
+msgstr "Sus cambios se han guardado."
+
+#: app/routes.py:142 app/routes.py:162
+#, python-format
+msgid "User %(username)s not found."
+msgstr "Usuario %(username)s no encontrado."
+
+#: app/routes.py:145
+msgid "You cannot follow yourself!"
+msgstr "No puedes seguirte a ti mismo!"
+
+#: app/routes.py:149
+#, python-format
+msgid "You are following %(username)s!"
+msgstr "¡Estás siguiendo a %(username)s!"
+
+#: app/routes.py:165
+msgid "You cannot unfollow yourself!"
+msgstr "No puedes dejar de seguirte a ti mismo!"
+
+#: app/routes.py:169
+#, python-format
+msgid "You are not following %(username)s."
+msgstr "No estás siguiendo %(username)s."
+
+#: app/routes.py:183
+msgid "Check your email for the instructions to reset your password"
+msgstr ""
+"Consulte su correo electrónico para obtener las instrucciones para "
+"restablecer su contraseña"
+
+#: app/routes.py:199
+msgid "Your password has been reset."
+msgstr "Tu contraseña ha sido restablecida."
+
+#: app/templates/404.jinja:4
+msgid "File Not Found"
+msgstr "Archivo no encontrado"
+
+#: app/templates/_post.jinja:14
+#, python-format
+msgid "%(username)s said %(when)s"
+msgstr "%(username)s dijo %(when)s"
+
+#: app/templates/base.jinja:21
+msgid "Home"
+msgstr "Inicio"
+
+#: app/templates/base.jinja:22
+msgid "Explore"
+msgstr "Explorar"
+
+#: app/templates/base.jinja:33
+msgid "Login"
+msgstr "Iniciar sesión"
+
+#: app/templates/base.jinja:35
+msgid "Profile"
+msgstr "Perfil"
+
+#: app/templates/base.jinja:36
+msgid "Logout"
+msgstr "Cerrar sesión"
+
+#: app/templates/edit_profile.jinja:4
+msgid "Edit Profile"
+msgstr "Editar Perfil"
+
+#: app/templates/index.jinja:4
+msgid "Hi, "
+msgstr "Hola, "
+
+#: app/templates/index.jinja:26
+msgid "Newer posts"
+msgstr "Nuevos puestos"
+
+#: app/templates/index.jinja:31 app/templates/user.jinja:41
+msgid "Older posts"
+msgstr "Entradas antiguas"
+
+#: app/templates/user.jinja:11
+msgid "Last seen on:"
+msgstr "Visto por última vez en:"
+
+#: app/templates/user.jinja:13
+msgid "followers"
+msgstr "seguidores"
+
+#: app/templates/user.jinja:13
+msgid "following"
+msgstr "siguiendo"
+
+#: app/templates/user.jinja:15
+msgid "Edit your profile"
+msgstr "Editar su perfil"
+
+#: app/templates/user.jinja:38
+#, fuzzy
+msgid "Never posts"
+msgstr "Nuevos puestos"

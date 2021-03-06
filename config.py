@@ -23,3 +23,5 @@ class Config():
     ADMINS = ['khokhlov.ivan@yahoo.com']
 
     POSTS_PER_PAGE = 10
+    LANGUAGES = ['en', 'es']
+    
