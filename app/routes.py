@@ -4,8 +4,8 @@ Module contains all the view functions which handle different routes.
 from datetime import datetime
 from werkzeug.urls import url_parse
 from flask_login import current_user, login_user, logout_user, login_required
-from flask import render_template, flash, redirect, url_for, request
-from flask_babel import _
+from flask import render_template, flash, redirect, url_for, request, g
+from flask_babel import _, get_locale
 from app import app, db
 from app.models import User, Post
 from app.forms import LoginForm, RegistrationForm, EditProfileForm, \
@@ -19,6 +19,7 @@ def before_request():
     if current_user.is_authenticated:
         current_user.last_seen = datetime.utcnow()
         db.session.commit()
+    g.locale = str(get_locale())
 
 @app.route('/', methods=['GET', 'POST'])
 @app.route('/index', methods=['GET', 'POST'])
