@@ -4,13 +4,15 @@ Module contains all the view functions which handle different routes.
 from datetime import datetime
 from werkzeug.urls import url_parse
 from flask_login import current_user, login_user, logout_user, login_required
-from flask import render_template, flash, redirect, url_for, request, g
+from flask import render_template, flash, redirect, url_for, request, g, jsonify
 from flask_babel import _, get_locale
+from guess_language import guess_language
 from app import app, db
 from app.models import User, Post
 from app.forms import LoginForm, RegistrationForm, EditProfileForm, \
     EmptyForm, PostForm, ResetPasswordRequestForm, ResetPasswordForm
 from app.email import send_password_reset_email
+from app.translate import translate
 
 
 @app.before_request
@@ -21,13 +23,17 @@ def before_request():
         db.session.commit()
     g.locale = str(get_locale())
 
+
 @app.route('/', methods=['GET', 'POST'])
 @app.route('/index', methods=['GET', 'POST'])
 @login_required
 def index():
     form = PostForm()
     if form.validate_on_submit():
-        post = Post(body=form.post.data, author=current_user)
+        language = guess_language(form.post.data)
+        if language == 'UNKNOWN' or len(language) > 5:
+            language = ''
+        post = Post(body=form.post.data, author=current_user, language=language)
         db.session.add(post)
         db.session.commit()
         flash(_('Your post is now live!'))
@@ -40,6 +46,7 @@ def index():
     return render_template('index.jinja', title='Home', form=form,
                            posts=posts.items, next_url=next_url,
                            prev_url=prev_url)
+
 
 @app.route('/explore')
 @login_required
@@ -172,6 +179,7 @@ def unfollow(username):
     else:
         return redirect(url_for('index'))
 
+
 @app.route('/reset_password_request', methods=['GET', 'POST'])
 def reset_password_request():
     if current_user.is_authenticated:
@@ -185,6 +193,7 @@ def reset_password_request():
         return redirect(url_for('login'))
     return render_template('reset_password_request.jinja',
                            title='Reset Password', form=form)
+
 
 @app.route('/reset_password/<token>', methods=['GET', 'POST'])
 def reset_password(token):
@@ -200,3 +209,11 @@ def reset_password(token):
         flash(_('Your password has been reset.'))
         return redirect(url_for('login'))
     return render_template('reset_password.html', form=form)
+
+
+@app.route('/translate', methods=['POST'])
+@login_required
+def translate_text():
+    return jsonify({'text': translate(request.form['text'],
+                                      request.form['source_language'],
+                                      request.form['dest_language'])})
