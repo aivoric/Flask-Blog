@@ -1,7 +1,14 @@
 import unittest
 from datetime import datetime, timedelta
-from app import app, db
+from app import create_app, db
 from app.models import User, Post
+
+from config import Config
+
+class TestConfig(Config):
+    TESTING = True
+    SQLALCHEMY_DATABASE_URI = 'sqlite://'
+    
 
 class UserModelCase(unittest.TestCase):
     def setUp(self):
@@ -10,12 +17,15 @@ class UserModelCase(unittest.TestCase):
         
         The db.create_all() call creates all the database tables
         """
-        app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite://'
+        self.app = create_app(TestConfig)
+        self.app_context = self.app.app_context()
+        self.app_context.push()
         db.create_all()
 
     def tearDown(self):
         db.session.remove()
         db.drop_all()
+        self.app_context.pop()
 
     def test_password_hashing(self):
         u = User(username='susan')

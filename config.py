@@ -2,28 +2,29 @@
 Configuration for the flask app.
 """
 import os
+from dotenv import load_dotenv
 
 basedir = os.path.abspath(os.path.dirname(__file__))
+load_dotenv(dotenv_path=os.path.join(basedir, '.env'), verbose=True)
 
 class Config():
-    '''
+    """
     Contains all the configurations for the project.
-    '''
-    SECRET_KEY = os.environ.get('SECRET_KEY') or 'you-will-never-guess'
-    SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL') or \
+    """
+    SECRET_KEY = os.getenv('SECRET_KEY') or 'you-will-never-guess'
+    SQLALCHEMY_DATABASE_URI = os.getenv('DATABASE_URL') or \
         'sqlite:///' + os.path.join(basedir, 'app.db')
     SQLALCHEMY_TRACK_MODIFICATIONS = False
 
-    MAIL_SERVER = 'smtp.mail.yahoo.com' # os.environ.get('MAIL_SERVER')
-    MAIL_PORT = 587 # int(os.environ.get('MAIL_PORT') or 25)
-    MAIL_USE_TLS = True # os.environ.get('MAIL_USE_TLS') is not None
-    # MAIL_USE_SSL = True # os.environ.get('MAIL_USE_SSL') is not None
-    MAIL_USERNAME = os.environ.get('MAIL_USERNAME')
-    MAIL_PASSWORD = os.environ.get('MAIL_PASSWORD')
+    MAIL_SERVER = os.getenv('MAIL_SERVER')
+    MAIL_PORT = int(os.getenv('MAIL_PORT') or 25)
+    MAIL_USE_TLS = os.getenv('MAIL_USE_TLS') is not None
+    MAIL_USERNAME = os.getenv('MAIL_USERNAME')
+    MAIL_PASSWORD = os.getenv('MAIL_PASSWORD')
     ADMINS = ['khokhlov.ivan@yahoo.com']
 
     POSTS_PER_PAGE = 10
     LANGUAGES = ['en', 'es']
     
-    MS_TRANSLATOR_KEY = os.environ.get('MS_TRANSLATOR_KEY')
+    MS_TRANSLATOR_KEY = os.getenv('MS_TRANSLATOR_KEY')
     
